@@ -2,24 +2,24 @@ var request = require('requestify');
 const express = require("express");
 const app = express();
 
-app.get('/', function (req, res) {
-  // res.json({message: 'Hola ' + req.query.user + '. Escribí "@tito help" para ver los comandos disponibles.'});
-  res.send('Hola')
+app.use(express.json());
+
+app.post('/', function (req, res) {
+  request.request('https://community-open-weather-map.p.rapidapi.com/weather?units=metric&q=' + req.body.query, {
+    method: 'GET',
+    headers: {'X-RapidAPI-Host': 'community-open-weather-map.p.rapidapi.com',
+              'X-RapidAPI-Key': 'a333959003mshc4e954768cc56b9p1a46a9jsn945cfc99b9cc'}
+  }).then(function (response) {
+    let body = response.getBody();
+    res.json({message: 'Ciudad: ' + req.body.query + '\n' +
+                       'Temperatura: ' + body.main.temp + '°C\n' +
+                       'Presión: ' + body.main.pressure + 'hPa\n' +
+                       'Humedad: ' + body.main.humidity + '%'});
+  });
 });
 
-// app.get('/info', function (req, res) {
-//   request.get(server_url + 'organization/' + req.query.org + '/' + req.query.channel).then(function (response) {
-//     let body = response.getBody();
-//     res.json({message: 'Nombre del canal: ' + req.query.channel + '\n' +
-//                        'Creador: ' + body.owner + '\n' +
-//                        'Descripción: ' + body.description + '\n' +
-//                        'Cantidad de mensajes: ' + body.messages + '\n' +
-//                        'Cantidad de integrantes: ' + body.members});
-//   });
-// });
-
 app.use(function(req, res, next) {
-  res.status(404).json({message: 'Ciudad no disponible. Escribí @temperatura help para ver las ciudades'});
+  res.status(404).json({message: 'Ciudad no disponible.'});
 });
 
 app.listen(process.env.PORT || 3000);
