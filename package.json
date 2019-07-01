@@ -1,0 +1,28 @@
+{
+  "name": "hypechat-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kajachuan/hypechat-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kajachuan/hypechat-bot/issues"
+  },
+  "homepage": "https://github.com/Kajachuan/hypechat-bot#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "memory-cache": "^0.2.0",
+    "requestify": "^0.2.5"
+  },
+  "engines": {
+    "node": "11.15.0"
+  }
+}
